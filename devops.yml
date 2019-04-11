@@ -7,8 +7,8 @@ pool:
 
 steps:
 - script: |
-    #dotnet restore # comment out if not using extensions
-    #dotnet build --output \'./bin/\' # comment out if not using extensions
+# dotnet restore  comment out if not using extensions
+# dotnet build --output \'./bin/\'  comment out if not using extensions
     npm install
     npm run build --if-present
     npm prune --production
@@ -28,3 +28,8 @@ steps:
     azureSubscription: "$(azureSubscription)"
     appType: 'functionApp'
     webAppName: "$(functionappName)"
+- task: AzureFunctionApp@1
+  inputs:
+    azureSubscription: "$(azureSubscription)"
+    appType: 'functionApp'
+    appName: "$(functionappName)"
