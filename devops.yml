@@ -1,6 +1,6 @@
 variables:
-  azureSubscription: '{ARM ACCESS TOKEN NAME}'
-  functionappName: '{NAME OF FUNCTIONAPP}'
+  azureSubscription: '563b99ad-34c0-408a-a84c-93da2d8274ab'
+  functionappName: 'aelnably-func-win-cons'
 
 pool:
   vmImage: 'VS2017-Win2016'
