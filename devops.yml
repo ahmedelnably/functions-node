@@ -1,5 +1,5 @@
 variables:
-  azureSubscription: 'Cloning Feature(563b99ad-34c0-408a-a84c-93da2d8274ab'
+  azureSubscription: '563b99ad-34c0-408a-a84c-93da2d8274ab'
   functionappName: 'aelnably-func-win-cons'
 
 pool:
