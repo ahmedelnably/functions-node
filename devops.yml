@@ -7,7 +7,7 @@ pool:
 
 steps:
 - script: |
-   IF EXIST dotnet build extensions.csproj --output ./bin
+   IF EXIST *.csproj dotnet build extensions.csproj --output ./bin
   displayName: 'Build extensions'
 - script: |
     npm install
