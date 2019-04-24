@@ -6,11 +6,12 @@ pool:
   vmImage: 'VS2017-Win2016'
 
 steps:
-- script: |
-   IF EXIST *.csproj dotnet build extensions.csproj --output ./bin
-  displayName: 'Build extensions'
-- script: |
-    npm install
+- bash: |
+    if [ -f extensions.csproj ]
+    then
+        dotnet build extensions.csproj --output ./bin
+    fi
+    npm install 
     npm run build --if-present
     npm prune --production
 - task: ArchiveFiles@2
