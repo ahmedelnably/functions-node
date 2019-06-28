@@ -7,15 +7,31 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+      vmImage: 'VS2017-Win2016'
 
 steps:
-- task: NodeTool@0
+- bash: |
+    npm install 
+    npm run build --if-present
+    npm prune --production
+- task: ArchiveFiles@2
+  displayName: "Archive files"
   inputs:
-    versionSpec: '10.x'
-  displayName: 'Install Node.js'
+    rootFolderOrFile: "$(System.DefaultWorkingDirectory)"
+    includeRootFolder: false
+    archiveFile: "$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip"
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
+    name: 'drop'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: AzureFunctionApp@1
+  inputs:
+    azureSubscription: 'Cloning Feature (563b99ad-34c0-408a-a84c-93da2d8274ab)'
+    appType: 'functionApp'
+    appName: 'funcgbbdemocli'
+    deployToSlotOrASE: true
+    resourceGroupName: 'funcgbbdemocli'
+    slotName: 'stage'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
